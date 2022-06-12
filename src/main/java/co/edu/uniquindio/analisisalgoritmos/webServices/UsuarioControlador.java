@@ -56,4 +56,5 @@ public class UsuarioControlador {
             throw new RuntimeException(e);
         }
     }
+
 }
