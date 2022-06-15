@@ -5,6 +5,8 @@ import co.edu.uniquindio.analisisalgoritmos.repositorio.UsuarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioServicioImpl  implements UsuarioServicio{
 
@@ -18,5 +20,15 @@ public class UsuarioServicioImpl  implements UsuarioServicio{
     @Override
     public void registrarUsuario(Usuario usuario) throws Exception {
         usuarioRepo.save(usuario);
+    }
+
+    @Override
+    public List<Integer> hallarX() throws Exception {
+        return usuarioRepo.hallarX();
+    }
+
+    @Override
+    public List<Integer> hallarY() throws Exception {
+        return usuarioRepo.hallarY();
     }
 }

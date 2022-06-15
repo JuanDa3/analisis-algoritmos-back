@@ -20,6 +20,9 @@ public class UsuarioControlador {
     private final FormularioServicio formularioServicio;
     private final PreguntaTestServicio preguntaTestServicio;
 
+    private List<Integer> x;
+    private List<Integer> y;
+
     public UsuarioControlador(UsuarioServicio usuarioServicio, FormularioServicio formularioServicio, PreguntaTestServicio preguntaTestServicio) {
         this.usuarioServicio = usuarioServicio;
         this.formularioServicio = formularioServicio;
@@ -35,6 +38,41 @@ public class UsuarioControlador {
             guardarPreguntas(usuarioGuardar, datosJuego.getEncuesta(), datosJuego.getCalificacion());
             return ResponseEntity.status(200).body(new Mensaje("Calificacion guardada"));
         } catch (Exception e) {
+            return ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/coeficiente")
+    public ResponseEntity<?>calcularCoeficienteCorrelacion(){
+        try{
+            x = usuarioServicio.hallarX();
+            y = usuarioServicio.hallarY();
+
+            double xm=0 , ym=0, numerador = 0,denominador = 0,xs=0 , ys=0;
+            for (int i = 0; i < y.size(); i++) {
+                xm = xm + x.get(i);
+                ym = ym + y.get(i);
+            }
+            xm = xm/x.size();
+            ym = ym/y.size();
+            for (int i = 0; i < y.size(); i++) {
+
+                numerador = numerador+(x.get(i) - xm)*(y.get(i) - ym);
+            }
+
+            for (int i = 0; i < y.size(); i++) {
+
+                xs = xs+Math.pow(x.get(i) - xm,2);
+                ys = ys+Math.pow(y.get(i) - ym,2);
+            }
+            denominador = Math.sqrt(xs * ys);
+
+
+
+            double coeficiente = numerador/denominador;
+
+            return ResponseEntity.status(200).body(coeficiente);
+        }catch (Exception e){
             return ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
         }
     }
