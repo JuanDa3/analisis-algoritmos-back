@@ -19,6 +19,9 @@ public interface PreguntaTestRepo extends JpaRepository<PreguntaTest, Integer> {
     @Query("select p.pregunta, count(p.pregunta) from PreguntaTest p where p.calificacion = 0 group by(p.pregunta)")
     List<Object[]>respuestasIncorrectas();
 
-    @Query("select u.nombre, count (p.calificacion) from PreguntaTest p Join Usuario u on p.usuario.idUsuario = u.idUsuario where p.calificacion = 1 group by (u.nombre) order by p.calificacion")
+    @Query(value = "SELECT u.nombre, COUNT(p.calificacion) from proyecto_analisis.pregunta_test p join proyecto_analisis.usuario u on p.id_usuario = u.id_usuario where calificacion = 1 group by(u.nombre) order by calificacion" ,nativeQuery = true)
     List<Object[]>listadoOrdenadoPorEstudiante();
+
+    //@Query("select u.nombre, count (p.calificacion) from PreguntaTest p Join Usuario u on p.usuario.idUsuario = u.idUsuario where p.calificacion = 1 group by (u.nombre) order by p.calificacion")
+    //List<Object[]>listadoOrdenadoPorEstudiante();
 }
