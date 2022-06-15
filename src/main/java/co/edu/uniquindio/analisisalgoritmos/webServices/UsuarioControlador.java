@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/cliente")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","https://analisis-algoritmos.herokuapp.com"})
 public class UsuarioControlador {
 
     private final UsuarioServicio usuarioServicio;

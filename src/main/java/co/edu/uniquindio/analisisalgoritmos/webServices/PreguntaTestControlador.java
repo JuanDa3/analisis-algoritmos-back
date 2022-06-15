@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/preguntatestcontroller")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","https://analisis-algoritmos.herokuapp.com"})
 public class PreguntaTestControlador {
 
     private final PreguntaTestServicio preguntaTestServicio;
